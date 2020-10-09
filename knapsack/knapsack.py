@@ -6,8 +6,26 @@ from collections import namedtuple
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
-    ratios = [x.value/x.size for x in items]
+    items = [dict(i._asdict()) for i in items]
+    for i in items:
+      i['ratio'] = i['value']/i['size']
+
+    items.sort(key=lambda x: x['ratio'], reverse=True)
+
     sack = []
+    weight = 0
+    value = 0
+    i = 0
+    while i < len(items):
+      if weight + items[i]['size'] > capacity:
+        i += 1
+      else:
+        weight += items[i]['size']
+        sack.append(items[i]['index'])
+        value += (items[i]['value'])
+        i += 1
+    return {'Value': value, 'Chosen': sorted(sack)}
+
 
 
 if __name__ == '__main__':
