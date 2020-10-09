@@ -3,13 +3,13 @@ Input: a List of integers
 Returns: a List of integers
 '''
 def product_of_all_other_numbers(arr):
-    # uses division
-    total_product = 1
-    for x in arr:
-        total_product *= x
-    products = [total_product] * len(arr)
+    products = []
     for i in range(len(arr)):
-        products[i] /= arr[i]
+        x = arr[:i] + arr[i+1:]
+        product = 1
+        for num in x:
+            product *= num 
+        products.append(product)
     return products
 
 
